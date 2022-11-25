@@ -122,19 +122,22 @@ def put_enemies(board, day, player_p):
         #ボスと資材の配置
         boss_p = without_rand(player_p, board)
         while board[boss_p][MATTERIAL_PLACE] >= 1:
-            boss_p = without_rand(player_p, board)
+            while boss_p == 0:#なんかバグるから資材と武器は座標0に設置しない
+                boss_p = without_rand(player_p, board)
         board[boss_p][BOSS_PLACE] = BOSS_IRU
         board[boss_p][MATTERIAL_PLACE] += 1
         #武器をボスと重ならないように配置
         weapon_p = without_rand(player_p, board)
         while weapon_p == boss_p:
-            weapon_p = without_rand(player_p, board)
+            while weapon_p == 0:#なんかバグるから資材と武器は座標0に設置しない
+                weapon_p = without_rand(player_p, board)
         board[weapon_p][WEAPON] = BUKI_ARU
     else:
         #資材の配置
         without_matt = without_rand(player_p, board)
         while board[without_matt][MATTERIAL_PLACE] >= 1:
-            without_matt = without_rand(player_p, board)
+            while without_matt == 0:#なんかバグるから資材と武器は座標0に設置しない
+                without_matt = without_rand(player_p, board)
         board[without_rand(player_p, board)][MATTERIAL_PLACE] += 1
 
     #ガスの配置 2回
@@ -154,9 +157,6 @@ def put_enemies(board, day, player_p):
             str_3_enemy = without_rand(player_p, board)
     board[str_3_enemy][ENEMY_VOL] += 1
     board[str_3_enemy][ENEMY_STR] += 3
-
-    #print("タイミングの確認")
-    #print_board(board)
 
     return board
 
